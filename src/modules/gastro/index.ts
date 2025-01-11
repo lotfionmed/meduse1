@@ -1,3 +1,4 @@
+import icon from '../../assets/icons/gastro-icon.png';
 import { desiase } from './chapters/desiase';
 import icon from '../../assets/icons/gastro-icon.png';
 import { symptoms } from './chapters/symptoms';

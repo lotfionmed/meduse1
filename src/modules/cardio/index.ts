@@ -1,4 +1,5 @@
 import icon from '../../assets/icons/cardio-icon.png';
+import icon from '../../assets/icons/cardio-icon.png';
 import { symptoms } from './chapters/symptoms';
 
 export const cardio = {
