@@ -1,10 +1,11 @@
+import { hemato } from './hemato';
 import { cardio } from './cardio';
 import { gastro } from './gastro';
 
 import { useState, useCallback, useEffect } from 'react';
 
 export const useModules = () => {
-  const [modules] = useState([gastro, cardio]);
+  const [modules] = useState([gastro, cardio, hemato]);
 
   useEffect(() => {
     console.log('Modules loaded:', modules);
