@@ -1,58 +1,58 @@
 export const videos = [
   {
-    title: "Jaundice (Hyperbilirubinemia) | Causes, Symptoms, Diagnosis & Treatment",
-    url: "https://www.youtube.com/embed/uc3SpICw5YA",
-    duration: "11:23",
-    author: "Osmosis",
-    description: "Vue d'ensemble complète de l'ictère, incluant la physiopathologie et l'approche clinique"
+    title: "Ictère : Physiopathologie et Diagnostic",
+    url: "https://www.youtube.com/watch?v=Qd4dnkKsUUY",
+    duration: "15:23",
+    author: "Medical Education",
+    description: "Explication complète de la physiopathologie et du diagnostic de l'ictère"
   },
   {
-    title: "Jaundice Made Simple",
-    url: "https://www.youtube.com/embed/NxvCz_EYR7U",
-    duration: "8:45",
-    author: "Medical Centric",
-    description: "Explication simple et claire de l'ictère et ses mécanismes"
+    title: "Ictère à bilirubine conjuguée",
+    url: "https://www.youtube.com/watch?v=vwJ0tJ8qvZ0",
+    duration: "12:45",
+    author: "Medical Teaching",
+    description: "Focus sur l'ictère à bilirubine conjuguée et ses causes"
   },
   {
-    title: "Understanding Jaundice - A Simple Guide",
-    url: "https://www.youtube.com/embed/AeYe5fNVfS8",
-    duration: "6:52",
-    author: "Animated Biology With Arpan",
-    description: "Guide illustré sur la compréhension de l'ictère"
+    title: "Ictère à bilirubine libre",
+    url: "https://www.youtube.com/watch?v=9yqH6VU_LYM",
+    duration: "10:30",
+    author: "Medical Education",
+    description: "Comprendre l'ictère à bilirubine libre"
   },
   {
-    title: "Jaundice - Pathophysiology",
-    url: "https://www.youtube.com/embed/RocoV3d_sJM",
-    duration: "9:17",
-    author: "Armando Hasudungan",
-    description: "Explication détaillée de la pathophysiologie de l'ictère"
+    title: "Ictère néonatal",
+    url: "https://www.youtube.com/watch?v=KX4ZwGqHzNY",
+    duration: "18:15",
+    author: "Pédiatrie Pratique",
+    description: "Tout sur l'ictère du nouveau-né"
   },
   {
-    title: "Clinical Cases in Jaundice",
-    url: "https://www.youtube.com/embed/2DXeJkqFZ2o",
-    duration: "15:30",
-    author: "Medical Videos",
-    description: "Discussion de cas cliniques d'ictère avec approche diagnostique"
-  },
-  {
-    title: "Neonatal Jaundice Explained Clearly",
-    url: "https://www.youtube.com/embed/OE8fWVqE0Hs",
-    duration: "12:15",
-    author: "MedCram",
-    description: "Focus spécial sur l'ictère néonatal et ses particularités"
-  },
-  {
-    title: "Bilirubin Metabolism & Jaundice",
-    url: "https://www.youtube.com/embed/QZxRjfwdqko",
+    title: "Diagnostic différentiel de l'ictère",
+    url: "https://www.youtube.com/watch?v=h-tRXjF2EeA",
     duration: "14:20",
-    author: "Ninja Nerd",
-    description: "Métabolisme de la bilirubine et mécanismes de l'ictère"
+    author: "Clinical Medicine",
+    description: "Approche du diagnostic différentiel de l'ictère"
   },
   {
-    title: "Approach to Jaundice - Clinical Skills",
-    url: "https://www.youtube.com/embed/M6xWy6Sjrss",
-    duration: "10:45",
-    author: "Medical Skills",
-    description: "Approche clinique pratique de l'ictère"
+    title: "Traitement de l'ictère",
+    url: "https://www.youtube.com/watch?v=xJ7r5H0AjGY",
+    duration: "16:45",
+    author: "Therapeutic Approach",
+    description: "Les différentes approches thérapeutiques de l'ictère"
+  },
+  {
+    title: "Cas clinique : Ictère cholestatique",
+    url: "https://www.youtube.com/watch?v=Q-8KuWEUeqE",
+    duration: "20:10",
+    author: "Clinical Cases",
+    description: "Étude de cas d'un patient avec ictère cholestatique"
+  },
+  {
+    title: "Examens biologiques dans l'ictère",
+    url: "https://www.youtube.com/watch?v=YbVH5BtBDWk",
+    duration: "13:25",
+    author: "Laboratory Medicine",
+    description: "Interprétation des examens biologiques dans l'ictère"
   }
 ];
