@@ -91,6 +91,41 @@ Meduse est une plateforme d'apprentissage moderne et interactive développée av
   - Mise en évidence du contenu important
   - Support du markdown
 
+### 5. Cours Spécialisés
+- **Gastroentérologie**
+  - Cours sur l'Ictère
+    - Vidéos éducatives sélectionnées
+    - Références académiques à jour
+    - Cas cliniques interactifs
+    - Support multimédia enrichi
+
+### 6. Sécurité et Confidentialité
+- **Mesures de Sécurité**
+  - Protection contre XSS et SQL injection
+  - CSRF protection avec tokens
+  - Rate limiting contre DDoS
+  - Gestion sécurisée des sessions
+  - Monitoring des événements de sécurité
+
+- **Authentification**
+  - Intégration Firebase
+  - Gestion sécurisée des tokens
+  - Sessions chiffrées
+  - Règles de sécurité personnalisées
+
+### 7. Configuration et Déploiement
+- **Variables d'Environnement**
+  - Configuration Firebase
+  - Clés de chiffrement
+  - Paramètres de sécurité
+  - Configuration de l'API
+
+- **Déploiement**
+  - Support de Render
+  - Configuration SPA
+  - Gestion des redirections
+  - Optimisation des performances
+
 ## Technologies Utilisées
 
 ### Frontend
@@ -346,6 +381,82 @@ src/
 - Documentation à jour
 - Code formatté
 - Commits conventionnels
+
+## Guide de Contribution
+
+### Ajouter du Nouveau Contenu
+
+1. **Cloner le Projet**
+```bash
+git clone https://github.com/votreusername/meduse.git
+cd meduse
+```
+
+2. **Créer une Nouvelle Branche**
+```bash
+git checkout -b feature/nouveau-cours
+```
+
+3. **Structure des Cours**
+- Localisation : `src/modules/[specialite]/courses/[nom-du-cours]/`
+- Fichiers requis :
+  - `videos.ts` : Liens des vidéos YouTube
+  - `references.ts` : Références bibliographiques
+  - `quiz.ts` : Questions du quiz
+  - `notes.ts` : Notes structurées
+
+4. **Format des Fichiers**
+- Pour les vidéos :
+```typescript
+export const videos = [
+  {
+    title: "Titre de la vidéo",
+    url: "https://www.youtube.com/watch?v=ID_VIDEO",
+    duration: "MM:SS",
+    author: "Nom de l'auteur",
+    description: "Description de la vidéo"
+  }
+];
+```
+
+- Pour les références :
+```typescript
+export const references = [
+  {
+    title: "Titre de la référence",
+    edition: "Édition",
+    pages: "Pages pertinentes",
+    authors: "Auteurs"
+  }
+];
+```
+
+5. **Commiter les Changements**
+```bash
+git add .
+git commit -m "Ajout du cours sur [sujet]"
+git push origin feature/nouveau-cours
+```
+
+6. **Créer une Pull Request**
+- Aller sur GitHub
+- Sélectionner votre branche
+- Cliquer sur "New Pull Request"
+- Décrire vos modifications
+- Soumettre la PR
+
+### Bonnes Pratiques
+- Vérifier que les liens YouTube sont valides
+- Inclure des références académiques récentes
+- Structurer le contenu de manière logique
+- Suivre les conventions de nommage existantes
+- Tester localement avant de soumettre
+
+### Déploiement
+Après fusion de votre PR :
+1. Les changements seront automatiquement déployés sur Render
+2. Vérifier le statut du déploiement sur Render
+3. Tester le nouveau contenu en production
 
 ## Licence
 
