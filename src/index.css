@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .dark {
+    color-scheme: dark;
+  }
+}
+
+@layer components {
+  .dark .course-card-hover:hover {
+    @apply bg-gray-700;
+  }
+}
