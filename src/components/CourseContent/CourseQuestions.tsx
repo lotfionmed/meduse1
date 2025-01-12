@@ -26,22 +26,23 @@ const Modal: React.FC<{
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className={`relative rounded-lg ${
+        className={`relative rounded-xl ${
           isDarkMode ? 'bg-gray-800' : 'bg-white'
-        } p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto`}
+        } p-4 md:p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto`}
       >
         <button
           onClick={onClose}
-          className={`absolute top-4 right-4 p-1 rounded-full ${
-            isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
-          }`}
+          className={`absolute top-2 right-2 md:top-4 md:right-4 p-2 rounded-full ${
+            isDarkMode ? 'hover:bg-gray-700 text-gray-300' : 'hover:bg-gray-100 text-gray-600'
+          } transition-colors duration-300`}
+          aria-label="Fermer"
         >
-          <X className={`h-6 w-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
+          <X className="h-5 w-5" />
         </button>
         {children}
       </motion.div>
@@ -86,14 +87,15 @@ const CourseQuestions: React.FC<CourseQuestionsProps> = ({
 
   return (
     <>
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
         {course.content?.normalMode?.questions.map((q: Question, index: number) => (
           <motion.div
             key={q.id}
             ref={el => questionsRef.current[index] = el}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`p-6 rounded-xl ${
+            transition={{ delay: index * 0.1 }}
+            className={`rounded-xl ${
               isDarkMode ? 'bg-gray-800/80 backdrop-blur-sm' : 'bg-white'
             } shadow-lg border-l-4 ${
               isDarkMode 
@@ -105,142 +107,153 @@ const CourseQuestions: React.FC<CourseQuestionsProps> = ({
                   : 'border-l-gray-300 border-gray-200'
             } hover:border-l-blue-500 transition-all duration-300`}
           >
-            <div className="flex items-center justify-between group">
-              <button
-                onClick={() => toggleQuestion(q.id)}
-                className="flex-grow text-left"
-              >
-                <div className="flex items-center gap-4">
-                  <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
-                    expandedQuestions.includes(q.id)
-                      ? isDarkMode 
-                        ? 'bg-blue-500/20 text-blue-400' 
-                        : 'bg-blue-100 text-blue-600'
-                      : isDarkMode
-                        ? 'bg-gray-700 text-gray-400'
-                        : 'bg-gray-100 text-gray-500'
-                  } transition-all duration-300`}>
-                    {index + 1}
-                  </div>
-                  <h3 className={`text-xl font-semibold ${
-                    isDarkMode ? 'text-white' : 'text-gray-900'
-                  } group-hover:text-blue-500 transition-colors duration-300`}>
-                    {q.question}
-                  </h3>
+            <div 
+              onClick={() => toggleQuestion(q.id)}
+              className="p-4 md:p-6 cursor-pointer"
+            >
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className={`flex items-center justify-center min-w-[2rem] h-8 rounded-full text-sm md:text-base ${
+                  expandedQuestions.includes(q.id)
+                    ? isDarkMode 
+                      ? 'bg-blue-500/20 text-blue-400' 
+                      : 'bg-blue-100 text-blue-600'
+                    : isDarkMode
+                      ? 'bg-gray-700 text-gray-400'
+                      : 'bg-gray-100 text-gray-500'
+                } transition-all duration-300`}>
+                  {index + 1}
                 </div>
-              </button>
-
-              <div className="flex items-center space-x-3 ml-4">
-                {q.image && (
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={(e) => openImageModal(q.image!, q.imageTitle, e)}
-                    className={`p-2 rounded-lg transition-colors duration-300 ${
-                      isDarkMode 
-                        ? 'hover:bg-blue-500/20 text-blue-400' 
-                        : 'hover:bg-blue-100 text-blue-600'
-                    }`}
-                  >
-                    <ImageIcon className="h-5 w-5" />
-                  </motion.button>
-                )}
-                {q.note && (
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={(e) => openNoteModal(q.note!, e)}
-                    className={`p-2 rounded-lg transition-colors duration-300 ${
-                      isDarkMode 
-                        ? 'hover:bg-yellow-500/20 text-yellow-400' 
-                        : 'hover:bg-yellow-100 text-yellow-600'
-                    }`}
-                  >
-                    <StickyNote className="h-5 w-5" />
-                  </motion.button>
-                )}
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className={`p-2 rounded-lg ${
-                    expandedQuestions.includes(q.id)
-                      ? isDarkMode 
-                        ? 'bg-blue-500/20 text-blue-400' 
-                        : 'bg-blue-100 text-blue-600'
-                      : isDarkMode
-                        ? 'text-gray-400'
-                        : 'text-gray-500'
-                  } transition-all duration-300`}
-                >
-                  {expandedQuestions.includes(q.id) ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </motion.div>
-              </div>
-            </div>
-            
-            <AnimatePresence>
-              {expandedQuestions.includes(q.id) && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className={`mt-6 ml-12 pt-4 border-t ${
-                    isDarkMode ? 'border-gray-700' : 'border-gray-200'
-                  }`}>
-                    <div className={`relative p-4 rounded-lg ${
-                      isDarkMode ? 'bg-gray-700/50' : 'bg-gray-50'
-                    }`}>
-                      <div className={`whitespace-pre-line ${
-                        isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                      } leading-relaxed`}>
-                        {q.answer.split(/\*\*(.*?)\*\*/g).map((part, index) => (
-                          <span key={index} className={index % 2 === 1 ? 'font-bold text-blue-500' : ''}>
-                            {part}
-                          </span>
-                        ))}
-                      </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className={`text-base md:text-lg font-semibold ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    } group-hover:text-blue-500 transition-colors duration-300 pr-8`}>
+                      {q.question}
+                    </h3>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {q.image && (
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={(e) => openImageModal(q.image!, q.imageTitle, e)}
+                          className={`p-1.5 md:p-2 rounded-lg transition-colors duration-300 ${
+                            isDarkMode 
+                              ? 'hover:bg-blue-500/20 text-blue-400' 
+                              : 'hover:bg-blue-100 text-blue-600'
+                          }`}
+                          aria-label="Voir l'image"
+                        >
+                          <ImageIcon className="h-4 w-4 md:h-5 md:w-5" />
+                        </motion.button>
+                      )}
+                      {q.note && (
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={(e) => openNoteModal(q.note!, e)}
+                          className={`p-1.5 md:p-2 rounded-lg transition-colors duration-300 ${
+                            isDarkMode 
+                              ? 'hover:bg-yellow-500/20 text-yellow-400' 
+                              : 'hover:bg-yellow-100 text-yellow-600'
+                          }`}
+                          aria-label="Voir la note"
+                        >
+                          <StickyNote className="h-4 w-4 md:h-5 md:w-5" />
+                        </motion.button>
+                      )}
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className={`p-1.5 md:p-2 rounded-lg ${
+                          expandedQuestions.includes(q.id)
+                            ? isDarkMode 
+                              ? 'bg-blue-500/20 text-blue-400' 
+                              : 'bg-blue-100 text-blue-600'
+                            : isDarkMode
+                              ? 'text-gray-400'
+                              : 'text-gray-500'
+                        } transition-all duration-300`}
+                      >
+                        {expandedQuestions.includes(q.id) ? (
+                          <ChevronUp className="h-4 w-4 md:h-5 md:w-5" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 md:h-5 md:w-5" />
+                        )}
+                      </motion.div>
                     </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                </div>
+              </div>
+              
+              <AnimatePresence>
+                {expandedQuestions.includes(q.id) && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className={`mt-4 md:mt-6 ml-11 md:ml-12 pt-4 border-t ${
+                      isDarkMode ? 'border-gray-700' : 'border-gray-200'
+                    }`}>
+                      <div className={`relative p-3 md:p-4 rounded-lg ${
+                        isDarkMode ? 'bg-gray-700/50' : 'bg-gray-50'
+                      }`}>
+                        <div className={`whitespace-pre-line text-sm md:text-base ${
+                          isDarkMode ? 'text-gray-200' : 'text-gray-700'
+                        } leading-relaxed`}>
+                          {q.answer}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
         ))}
       </div>
 
+      {/* Image Modal */}
       <Modal
         isOpen={imageModal.isOpen}
         onClose={() => setImageModal({ isOpen: false, url: '', title: '' })}
         isDarkMode={isDarkMode}
       >
-        <div className="flex flex-col items-center">
-          <h3 className={`text-xl font-semibold mb-4 ${
-            isDarkMode ? 'text-gray-200' : 'text-gray-800'
-          }`}>
-            {imageModal.title || "Illustration détaillée"}
-          </h3>
-          <img
-            src={imageModal.url}
-            alt="Illustration détaillée"
-            className="max-w-full max-h-[70vh] object-contain rounded-lg"
+        <div className="p-4">
+          {imageModal.title && (
+            <h3 className={`text-lg md:text-xl font-semibold mb-4 ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>
+              {imageModal.title}
+            </h3>
+          )}
+          <img 
+            src={imageModal.url} 
+            alt={imageModal.title || 'Question image'} 
+            className="w-full h-auto rounded-lg"
           />
         </div>
       </Modal>
 
+      {/* Note Modal */}
       <Modal
         isOpen={noteModal.isOpen}
         onClose={() => setNoteModal({ isOpen: false, text: '' })}
         isDarkMode={isDarkMode}
       >
-        <div className={`${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-          <h3 className="text-xl font-semibold mb-4">Note importante</h3>
-          <p className="whitespace-pre-line text-lg">{noteModal.text}</p>
+        <div className="p-4">
+          <h3 className={`text-lg md:text-xl font-semibold mb-4 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
+            Note
+          </h3>
+          <div className={`whitespace-pre-line text-sm md:text-base ${
+            isDarkMode ? 'text-gray-200' : 'text-gray-700'
+          }`}>
+            {noteModal.text}
+          </div>
         </div>
       </Modal>
     </>
