@@ -84,7 +84,7 @@ const CourseContent: React.FC<CourseContentProps> = ({
 
   if (isClinicalMode && course.content?.clinicalMode?.cases) {
     return (
-      <div ref={contentRef} className="min-h-screen">
+      <div ref={contentRef}>
         <CourseOutline
           course={course}
           isDarkMode={isDarkMode}
@@ -113,7 +113,7 @@ const CourseContent: React.FC<CourseContentProps> = ({
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="relative">
       <CourseOutline
         course={course}
         isDarkMode={isDarkMode}
@@ -132,12 +132,12 @@ const CourseContent: React.FC<CourseContentProps> = ({
         setShowReferences={setShowReferences}
       />
 
-      <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="max-w-3xl mx-auto p-6">
         <motion.div
           ref={contentRef}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-6 sm:space-y-8"
+          className="space-y-8"
         >
           <CourseHeader
             course={course}
@@ -196,28 +196,42 @@ const CourseContent: React.FC<CourseContentProps> = ({
         images={course.content?.images}
       />
 
-      <ChronologyModal
-        isOpen={showChronology}
-        onClose={() => setShowChronology(false)}
-        isDarkMode={isDarkMode}
-        chronology={course.content?.normalMode?.chronology}
-      />
+      {showChronology && course.content?.normalMode?.chronology && (
+        <ChronologyModal
+          isOpen={showChronology}
+          onClose={() => setShowChronology(false)}
+          isDarkMode={isDarkMode}
+          events={course.content.normalMode.chronology.events}
+          title={course.content.normalMode.chronology.title}
+        />
+      )}
 
       <KeywordsModal
         isOpen={showKeywords}
         onClose={() => setShowKeywords(false)}
-        keywords={course.content?.keywords || []}
         isDarkMode={isDarkMode}
+        keywords={course.content?.normalMode?.keywords || []}
+        title={course.title}
       />
 
       <SimilarCoursesModal
         isOpen={showSimilarCourses}
         onClose={() => setShowSimilarCourses(false)}
-        similarCourses={course.content?.similarCourses || []}
         isDarkMode={isDarkMode}
-        onCourseSelect={(moduleId, chapterId, courseId) => {
-          onModuleSelect(moduleId, chapterId, courseId);
-          setShowSimilarCourses(false);
+        similarCourses={course?.content?.normalMode?.similarCourses || []}
+        onCourseSelect={(courseId) => {
+          // Trouver le module, le chapitre et le cours sélectionné
+          for (const module of modules) {
+            for (const chapter of module.chapters) {
+              const foundCourse = chapter.courses.find(c => c.id === courseId);
+              if (foundCourse) {
+                // Navigation directe vers le cours
+                onModuleSelect(module.id, chapter.id, courseId);
+                setShowSimilarCourses(false);
+                return;
+              }
+            }
+          }
         }}
       />
     </div>
